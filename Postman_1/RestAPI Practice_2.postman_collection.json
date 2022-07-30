@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "b9626e79-6631-4a29-a81b-3428f7a1df3a",
+		"name": "RestAPI Practice_2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12974849"
+	},
+	"item": [
+		{
+			"name": "Registar Via File",
+			"item": [
+				{
+					"name": "New Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Body is correct EMAIL\", function () {\r",
+									"    pm.response.to.have.body(\"email\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body is correct PASSWORD\", function () {\r",
+									"    pm.response.to.have.body(\"password\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"pistol\"\r\n}"
+						},
+						"url": {
+							"raw": "https://reqres.in/{{endpoint}}",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.environment.set(\"email\", \"eve.holt@reqres.in\");",
+							"pm.environment.set(\"password\", \"pistol\");",
+							"pm.globals.set(\"endpoint\", \"api/register\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "GET Users Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{commonURL}}/users?page=2",
+					"host": [
+						"{{commonURL}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Single Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{commonURL}}/users/2",
+					"host": [
+						"{{commonURL}}"
+					],
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Create User Creation",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"email\", \"eve.holt@reqres.in\");\r",
+							"pm.environment.set(\"password\", \"pistol\")\r",
+							"\r",
+							"\r",
+							"\r",
+							"let email = pm.variables.get(\"email\")\r",
+							"console.log(\"Email: \"+email)\r",
+							"\r",
+							"let pass = pm.variables.get(\"password\");\r",
+							"console.log(\"Password: \" + pass)\r",
+							"\r",
+							"\r",
+							"let commonURL = pm.globals.get(\"commonURL\")\r",
+							"console.log(\"Common Url: \"+ commonURL)\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200, Your Request Successfull\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    console.log(\"Overall Success\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 400, Your Request is BAD\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    console.log(\"Failed\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}\r\n\r\n"
+				},
+				"url": {
+					"raw": "{{commonURL}}/register",
+					"host": [
+						"{{commonURL}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
